@@ -12,10 +12,6 @@ namespace CodeConversion
         private Dictionary<ShipName, Ship> _Ships;
         private int _ShipsKilled;
 
-        public SeaGrid() {
-            _GameTiles = new Tile[Width - 1 + 1, Height - 1 + 1];
-            _ShipsKilled = 0;
-        }
 
         /// <summary>
     /// The sea grid has changed and should be redrawn.
@@ -98,6 +94,9 @@ namespace CodeConversion
         /// </summary>
         public SeaGrid(Dictionary<ShipName, Ship> ships)
         {
+            _GameTiles = new Tile[Width - 1 + 1, Height - 1 + 1];
+            _ShipsKilled = 0;
+
             // fill array with empty Tiles
             int i;
             var loopTo = Width - 1;

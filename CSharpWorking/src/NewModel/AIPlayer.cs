@@ -67,7 +67,12 @@ namespace CodeConversion
         /// <returns>true if location 1 and location 2 are at the same spot</returns>
             public static bool operator ==(Location @this, Location other)
             {
-                return @this != null && other != null && @this.Row == other.Row && @this.Column == other.Column;
+
+                //return !(@this is null) && other != null && @this.Row == other.Row && @this.Column == other.Column;
+                if (ReferenceEquals(@this, null))
+                    return false;
+
+                return @this.Equals(other);
             }
 
             /// <summary>
@@ -78,16 +83,21 @@ namespace CodeConversion
         /// <returns>true if location 1 and location 2 are not at the same spot</returns>
             public static bool operator !=(Location @this, Location other)
             {
-                return @this == null || other == null || @this.Row != other.Row || @this.Column != other.Column;
+                //return (@this is null) || other == null || @this.Row != other.Row || @this.Column != other.Column;
+
+                return !(@this == other);
             }
 
-            public override bool Equals(object other) {
-                if (other == null)
+            public override bool Equals(object obj) {
+                if (ReferenceEquals(null, obj))
                     return false;
-                if (!(other is Location))
+                if (ReferenceEquals(this, obj))
+                    return true;
+                if (!(obj is Location))
                     return false;
+                Location other = (Location)obj;
 
-                return this == (Location)other;
+                return (this.Row == other.Row) && (this.Column == other.Column);
             }
 
             public override int GetHashCode() {

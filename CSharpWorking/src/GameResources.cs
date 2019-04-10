@@ -235,7 +235,9 @@ namespace CodeConversion
             SwinGame.FreeBitmap(_Animation);
             SwinGame.FreeBitmap(_LoaderEmpty);
             SwinGame.FreeBitmap(_LoaderFull);
-            Audio.FreeSoundEffect(_StartSound);
+            
+            // TODO: Figure out why FreeSoundEffect throws a "System.AccessViolationException"
+            //Audio.FreeSoundEffect(_StartSound);
             SwinGame.ChangeScreenSize(width, height);
         }
 
@@ -286,8 +288,11 @@ namespace CodeConversion
         private static void FreeSounds()
         {
             //SoundEffect obj;
+            //TODO Figure out why this crashes it, See FreeSoundEffect(_StartSound)
+            /*
             foreach (var obj in _Sounds.Values)
                 Audio.FreeSoundEffect(obj);
+                */
         }
 
         private static void FreeMusic()

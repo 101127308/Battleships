@@ -17,11 +17,6 @@ namespace CodeConversion
         private int _hits;
         private int _misses;
 
-        public Player() {
-            _Ships = new Dictionary<ShipName, Ship>();
-            _playerGrid = new SeaGrid(_Ships);
-        }
-
         /// <summary>
     /// Returns the game that the player is part of.
     /// </summary>
@@ -53,6 +48,9 @@ namespace CodeConversion
 
         public Player(BattleShipsGame controller)
         {
+            _Ships = new Dictionary<ShipName, Ship>();
+            _playerGrid = new SeaGrid(_Ships);
+
             _game = controller;
 
             // for each ship add the ships name so the seagrid knows about them
@@ -272,6 +270,9 @@ namespace CodeConversion
                         heading = Direction.LeftRight;
 
                     // try to place ship, if position unplaceable, generate new coordinates
+                    // ##########
+                    // Throws "Intentional" exceptions for each unplacable attempt - BAD
+                    // ##########
                     try
                     {
                         PlayerGrid.MoveShip(x, y, shipToPlace, heading);

@@ -355,6 +355,8 @@ namespace CodeConversion
 
 
         public static void DrawTextLines(string theText, Color textColor, Color bgColor, Font font, FontAlignment fontAlignment, Rectangle toDraw) {
+            //SwinGame.DrawText(theText, textColor, font, toDraw.X, toDraw.Y,);
+            SwinGame.DrawText(theText, textColor, bgColor, font, fontAlignment, toDraw);
             //throw new NotImplementedException();
         }
     }
