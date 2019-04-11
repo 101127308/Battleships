@@ -38,9 +38,6 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="src\GameMain.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="SwinGame">
       <HintPath>lib\SwinGame.dll</HintPath>
     </Reference>
@@ -52,6 +49,34 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <WinLibs Include="lib\win32\*.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\DeploymentController.cs" />
+    <Compile Include="src\DiscoveryController.cs" />
+    <Compile Include="src\EndingGameController.cs" />
+    <Compile Include="src\GameController.cs" />
+    <Compile Include="src\GameLogic.cs" />
+    <Compile Include="src\GameResources.cs" />
+    <Compile Include="src\GameState.cs" />
+    <Compile Include="src\HighScoreController.cs" />
+    <Compile Include="src\MenuController.cs" />
+    <Compile Include="src\NewModel\AIHardPlayer.cs" />
+    <Compile Include="src\NewModel\AIMediumPlayer.cs" />
+    <Compile Include="src\NewModel\AIOption.cs" />
+    <Compile Include="src\NewModel\AIPlayer.cs" />
+    <Compile Include="src\NewModel\AttackResult.cs" />
+    <Compile Include="src\NewModel\BattleShipsGame.cs" />
+    <Compile Include="src\NewModel\Direction.cs" />
+    <Compile Include="src\NewModel\ISeaGrid.cs" />
+    <Compile Include="src\NewModel\Player.cs" />
+    <Compile Include="src\NewModel\ResultOfAttack.cs" />
+    <Compile Include="src\NewModel\SeaGrid.cs" />
+    <Compile Include="src\NewModel\SeaGridAdapter.cs" />
+    <Compile Include="src\NewModel\Ship.cs" />
+    <Compile Include="src\NewModel\ShipName.cs" />
+    <Compile Include="src\NewModel\Tile.cs" />
+    <Compile Include="src\NewModel\TileView.cs" />
+    <Compile Include="src\UtilityFunctions.cs" />
   </ItemGroup>
   <Target Name="CopyLibsToOut">
     <Copy SourceFiles="@(WinLibs)" DestinationFolder="$(OutDir)" />
