@@ -3,21 +3,16 @@ using SwinGameSDK;
 
 namespace CodeConversion
 {
-
-    /// <summary>
-
-/// The EndingGameController is responsible for managing the interactions at the end
-
-/// of a game.
-
-/// </summary>
-
+    /*
+    CLASS: Ending Game Controller
+    PURPOSE: The EndingGameController is responsible for managing the interactions at the end of a game.
+    */
     static class EndingGameController
     {
-
-        /// <summary>
-    /// Draw the end of the game screen, shows the win/lose state
-    /// </summary>
+        /*
+        FUNCTION:Draw End Of Game
+        PURPOSE: Draw the end of the game screen, shows the win/lose state.
+        */
         public static void DrawEndOfGame()
         {
             Rectangle toDraw = new Rectangle();
@@ -39,10 +34,10 @@ namespace CodeConversion
             UtilityFunctions.DrawTextLines(whatShouldIPrint, Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw);
         }
 
-        /// <summary>
-    /// Handle the input during the end of the game. Any interaction
-    /// will result in it reading in the highsSwinGame.
-    /// </summary>
+        /*
+        FUNCTION:Handle End Of Game Input
+        PURPOSE: Handle the input during the end of the game. Any interaction will result in it reading in the highsSwinGame.
+        */
         public static void HandleEndOfGameInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.ReturnKey) || SwinGame.KeyTyped(KeyCode.EscapeKey))
