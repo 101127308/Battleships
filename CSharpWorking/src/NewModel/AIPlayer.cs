@@ -107,6 +107,7 @@ namespace CodeConversion
         }
 
 
+
         public AIPlayer(BattleShipsGame game) : base(game)
         {
         }
@@ -156,7 +157,19 @@ namespace CodeConversion
         private void Delay()
         {
             int i;
-            for (i = 0; i <= 150; i++)
+            int wait = 5;
+            switch (_game.AITimer) {
+                case AITime.Short:
+                    wait = 5;
+                    break;
+                case AITime.Normal:
+                    wait = 75;
+                    break;
+                case AITime.Long:
+                    wait = 150;
+                    break;
+            }
+            for (i = 0; i <= wait; i++)
             {
                 // Dont delay if window is closed
                 if (SwinGame.WindowCloseRequested())

@@ -61,7 +61,9 @@
     <Compile Include="src\HighScoreController.cs" />
     <Compile Include="src\MenuController.cs" />
     <Compile Include="src\NewModel\AIHardPlayer.cs" />
+    <Compile Include="src\NewModel\AIEasyPlayer.cs" />
     <Compile Include="src\NewModel\AIMediumPlayer.cs" />
+    <Compile Include="src\NewModel\AITime.cs" />
     <Compile Include="src\NewModel\AIOption.cs" />
     <Compile Include="src\NewModel\AIPlayer.cs" />
     <Compile Include="src\NewModel\AttackResult.cs" />

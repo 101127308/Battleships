@@ -24,6 +24,7 @@ namespace CodeConversion
         private Player[] _players = new Player[3];
         private int _playerIndex = 0;
 
+
         /// <summary>
     /// The current player.
     /// </summary>
@@ -38,11 +39,14 @@ namespace CodeConversion
             }
         }
 
+        private AITime _AITimer = AITime.Long;
+        public AITime AITimer { get => _AITimer; set => _AITimer = value; }
+
         /// <summary>
-    /// AddDeployedPlayer adds both players and will make sure
-    /// that the AI player deploys all ships
-    /// </summary>
-    /// <param name="p"></param>
+        /// AddDeployedPlayer adds both players and will make sure
+        /// that the AI player deploys all ships
+        /// </summary>
+        /// <param name="p"></param>
         public void AddDeployedPlayer(Player p)
         {
             if (_players[0] == null)
