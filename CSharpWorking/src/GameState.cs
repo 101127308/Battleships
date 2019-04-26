@@ -18,13 +18,18 @@
         ViewingHighScores,
 
         /// <summary>
-    /// The player is altering the game settings
+    /// The player is altering the game difficulty
     /// </summary>
-        AlteringSettings,
+        AlteringDifficulty,
 
         /// <summary>
-    /// Players are deploying their ships
-    /// </summary>
+        /// The player is altering the game timer
+        /// </summary>
+        AlteringTimer,
+
+        /// <summary>
+        /// Players are deploying their ships
+        /// </summary>
         Deploying,
 
         /// <summary>

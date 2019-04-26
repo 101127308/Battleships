@@ -259,7 +259,8 @@ namespace CodeConversion
             {
                 case GameState.ViewingMainMenu:
                 case GameState.ViewingGameMenu:
-                case GameState.AlteringSettings:
+                case GameState.AlteringDifficulty:
+                case GameState.AlteringTimer:
                 case GameState.ViewingHighScores:
                     {
                         SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);

@@ -23,6 +23,7 @@ namespace CodeConversion
         private static Stack<GameState> _state = new Stack<GameState>();
 
         private static AIOption _aiSetting;
+        private static AITime _aiTimer;
 
         /// <summary>
     /// Returns the current state of the game, indicating which screen is
@@ -86,27 +87,25 @@ namespace CodeConversion
 
             // Create the game
             _theGame = new BattleShipsGame();
+            _theGame.AITimer = _aiTimer;
 
             // create the players
             switch (_aiSetting)
             {
-                case AIOption.Medium:
-                    {
-                        _ai = new AIMediumPlayer(_theGame);
-                        break;
-                    }
+                case AIOption.Medium: {
+                    _ai = new AIMediumPlayer(_theGame);
+                    break;
+                }
 
-                case AIOption.Hard:
-                    {
-                        _ai = new AIHardPlayer(_theGame);
-                        break;
-                    }
+                case AIOption.Hard: {
+                    _ai = new AIHardPlayer(_theGame);
+                    break;
+                }
 
-                default:
-                    {
-                        _ai = new AIHardPlayer(_theGame);
-                        break;
-                    }
+                default: {
+                    _ai = new AIEasyPlayer(_theGame);
+                    break;
+                }
             }
 
             _human = new Player(_theGame);
@@ -325,12 +324,15 @@ namespace CodeConversion
                         break;
                     }
 
-                case GameState.AlteringSettings:
+                case GameState.AlteringDifficulty:
                     {
-                        MenuController.HandleSetupMenuInput();
+                        MenuController.HandleDifficultyMenuInput();
                         break;
                     }
-
+                case GameState.AlteringTimer: {
+                        MenuController.HandleTimerMenuInput();
+                        break;
+                    }
                 case GameState.Deploying:
                     {
                         DeploymentController.HandleDeploymentInput();
@@ -383,9 +385,13 @@ namespace CodeConversion
                         break;
                     }
 
-                case GameState.AlteringSettings:
+                case GameState.AlteringDifficulty:
                     {
-                        MenuController.DrawSettings();
+                        MenuController.DrawDifficultySettings();
+                        break;
+                    }
+                case GameState.AlteringTimer: {
+                        MenuController.DrawTimerSettings();
                         break;
                     }
 
@@ -455,6 +461,10 @@ namespace CodeConversion
         public static void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;
+        }
+
+        public static void SetTimer(AITime setting) {
+            _aiTimer = setting;
         }
     }
 }

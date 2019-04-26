@@ -23,7 +23,12 @@ namespace CodeConversion
     /// <remarks>
     /// These are the text captions for the menu items.
     /// </remarks>
-        private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
+        private readonly static string[][] _menuStructure = new[] {
+            new string[] { "PLAY", "DIFFICULTY", "AI TIMER", "SCORES", "QUIT" },
+            new string[] { "RETURN", "SURRENDER", "QUIT" },
+            new string[] { "EASY", "MEDIUM", "HARD" },
+            new string[] { "SHORT", "NORMAL", "LONG" },
+        };
 
         private const int MENU_TOP = 575;
         private const int MENU_LEFT = 30;
@@ -35,17 +40,22 @@ namespace CodeConversion
 
         private const int MAIN_MENU = 0;
         private const int GAME_MENU = 1;
-        private const int SETUP_MENU = 2;
+        private const int DIFFICULTY_MENU = 2;
+        private const int TIMER_MENU = 3;
 
         private const int MAIN_MENU_PLAY_BUTTON = 0;
-        private const int MAIN_MENU_SETUP_BUTTON = 1;
-        private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
-        private const int MAIN_MENU_QUIT_BUTTON = 3;
+        private const int MAIN_MENU_DIFFICULTY_BUTTON = 1;
+        private const int MAIN_MENU_TIMER_BUTTON = 2;
+        private const int MAIN_MENU_TOP_SCORES_BUTTON = 3;
+        private const int MAIN_MENU_QUIT_BUTTON = 4;
 
         private const int SETUP_MENU_EASY_BUTTON = 0;
         private const int SETUP_MENU_MEDIUM_BUTTON = 1;
         private const int SETUP_MENU_HARD_BUTTON = 2;
-        private const int SETUP_MENU_EXIT_BUTTON = 3;
+
+        private const int SETUP_MENU_SHORT_TIMER_BUTTON = 0;
+        private const int SETUP_MENU_NORMAL_TIMER_BUTTON = 1;
+        private const int SETUP_MENU_LONG_TIMER_BUTTON = 2;
 
         private const int GAME_MENU_RETURN_BUTTON = 0;
         private const int GAME_MENU_SURRENDER_BUTTON = 1;
@@ -65,21 +75,29 @@ namespace CodeConversion
         /// <summary>
     /// Handles the processing of user input when the main menu is showing
     /// </summary>
-        public static void HandleSetupMenuInput()
+        public static void HandleDifficultyMenuInput()
         {
             bool handled;
-            handled = HandleMenuInput(SETUP_MENU, 1, 1);
+            handled = HandleMenuInput(DIFFICULTY_MENU, 1, 1);
+
+            if (!handled)
+                HandleMenuInput(MAIN_MENU, 0, 0);
+        }
+
+        public static void HandleTimerMenuInput() {
+            bool handled;
+            handled = HandleMenuInput(TIMER_MENU, 1, 1);
 
             if (!handled)
                 HandleMenuInput(MAIN_MENU, 0, 0);
         }
 
         /// <summary>
-    /// Handle input in the game menu.
-    /// </summary>
-    /// <remarks>
-    /// Player can return to the game, surrender, or quit entirely
-    /// </remarks>
+        /// Handle input in the game menu.
+        /// </summary>
+        /// <remarks>
+        /// Player can return to the game, surrender, or quit entirely
+        /// </remarks>
         public static void HandleGameMenuInput()
         {
             HandleMenuInput(GAME_MENU, 0, 0);
@@ -150,19 +168,26 @@ namespace CodeConversion
     /// <remarks>
     /// Also shows the main menu
     /// </remarks>
-        public static void DrawSettings()
+        public static void DrawDifficultySettings()
         {
             // Clears the Screen to Black
             // SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
 
             DrawButtons(MAIN_MENU);
-            DrawButtons(SETUP_MENU, 1, 1);
+            DrawButtons(DIFFICULTY_MENU, 1, 1);
+        }
+        public static void DrawTimerSettings() {
+            // Clears the Screen to Black
+            // SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
+
+            DrawButtons(MAIN_MENU);
+            DrawButtons(TIMER_MENU, 1, 1);
         }
 
         /// <summary>
-    /// Draw the buttons associated with a top level menu.
-    /// </summary>
-    /// <param name="menu">the index of the menu to draw</param>
+        /// Draw the buttons associated with a top level menu.
+        /// </summary>
+        /// <param name="menu">the index of the menu to draw</param>
         private static void DrawButtons(int menu)
         {
             DrawButtons(menu, 0, 0);
@@ -246,9 +271,14 @@ namespace CodeConversion
                         break;
                     }
 
-                case SETUP_MENU:
+                case DIFFICULTY_MENU:
                     {
-                        PerformSetupMenuAction(button);
+                        PerformDifficultyMenuAction(button);
+                        break;
+                    }
+
+                case TIMER_MENU: {
+                        PerformTimerMenuAction(button);
                         break;
                     }
 
@@ -274,9 +304,14 @@ namespace CodeConversion
                         break;
                     }
 
-                case MAIN_MENU_SETUP_BUTTON:
+                case MAIN_MENU_DIFFICULTY_BUTTON:
                     {
-                        GameController.AddNewState(GameState.AlteringSettings);
+                        GameController.AddNewState(GameState.AlteringDifficulty);
+                        break;
+                    }
+
+                case MAIN_MENU_TIMER_BUTTON: {
+                        GameController.AddNewState(GameState.AlteringTimer);
                         break;
                     }
 
@@ -298,19 +333,19 @@ namespace CodeConversion
     /// The setup menu was clicked, perform the button's action.
     /// </summary>
     /// <param name="button">the button pressed</param>
-        private static void PerformSetupMenuAction(int button)
+        private static void PerformDifficultyMenuAction(int button)
         {
             switch (button)
             {
                 case SETUP_MENU_EASY_BUTTON:
                     {
-                        GameController.SetDifficulty(AIOption.Hard);
+                        GameController.SetDifficulty(AIOption.Easy);
                         break;
                     }
 
                 case SETUP_MENU_MEDIUM_BUTTON:
                     {
-                        GameController.SetDifficulty(AIOption.Hard);
+                        GameController.SetDifficulty(AIOption.Medium);
                         break;
                     }
 
@@ -324,10 +359,31 @@ namespace CodeConversion
             GameController.EndCurrentState();
         }
 
+        private static void PerformTimerMenuAction(int button) {
+            switch (button) {
+                case SETUP_MENU_SHORT_TIMER_BUTTON: {
+                        GameController.SetTimer(AITime.Short);
+                        break;
+                    }
+
+                case SETUP_MENU_NORMAL_TIMER_BUTTON: {
+                        GameController.SetTimer(AITime.Normal);
+                        break;
+                    }
+
+                case SETUP_MENU_LONG_TIMER_BUTTON: {
+                        GameController.SetTimer(AITime.Long);
+                        break;
+                    }
+            }
+            // Always end state - handles exit button as well
+            GameController.EndCurrentState();
+        }
+
         /// <summary>
-    /// The game menu was clicked, perform the button's action.
-    /// </summary>
-    /// <param name="button">the button pressed</param>
+        /// The game menu was clicked, perform the button's action.
+        /// </summary>
+        /// <param name="button">the button pressed</param>
         private static void PerformGameMenuAction(int button)
         {
             switch (button)
